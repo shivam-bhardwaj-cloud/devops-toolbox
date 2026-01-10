@@ -5,9 +5,7 @@ A curated collection of scripts, utilities, and reference materials to support c
 ## Directory Overview
 
 ### Platform Resources
-- **[Linux](./Linux/)**  
-  Contains Linux-specific scripts, configuration examples, troubleshooting references, and environment setup notes.
-
+- **[Linux](./Linux/)**
 ## Purpose
 
 This repository aims to:
