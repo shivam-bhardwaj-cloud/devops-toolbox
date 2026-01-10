@@ -7,3 +7,4 @@ scp -i <KeyPath> <LocalSourcePath> <Username>@<PublicIP>:<DestinationPathOnEC2>
 ``` bash
 scp -i <KeyPath> <Username>@<PublicIP>:<SourcePathOnEC2> <LocalDestinationPath>
 ```
+---
