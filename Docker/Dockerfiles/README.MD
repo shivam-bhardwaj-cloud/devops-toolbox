@@ -4,7 +4,7 @@
 
 Best for: Python web apps using Gunicorn. Key features: No cache to save space, unbuffered logs for real-time debugging.
 
-``` docker
+```Dockerfile
 FROM python:3.12-slim
 
 WORKDIR /app
@@ -29,7 +29,7 @@ CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]
 Best for: Lightweight Javascript applications.
 
 
-``` docker
+```Dockerfile
 FROM node:18-alpine
 
 WORKDIR /app
