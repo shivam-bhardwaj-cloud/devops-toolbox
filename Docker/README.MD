@@ -1,229 +1,228 @@
 # Docker Commands
 ### Check Docker Version
 
-```bash
+```shell
 docker --version
 ```
 ### System Info
 
-```bash
+```shell
 docker info
 ```
 ## 2. Working with Images
 
 ### Pull an Image
-```bash
+```shell
 docker pull nginx
 ```
 
 ### List Images
-```bash
+```shell
 docker images
 ```
 ### Build an Image
-```bash
+```shell
 docker build -t <image-name>:tag .
 ```
 
 ### Remove an Image
-```bash
+```shell
 docker rmi <image_id_or_name>
 ```
 
 ## 3. Container Management
 
 ### Run a Container
-```bash
+```shell
 docker run -d -p 8080:80 --name my-container nginx
 ```
 ### List Running Containers
-```bash
+```shell
 docker ps
 ```
 ### List All Containers
-```bash
+```shell
 docker ps -a
 ```
 ### Stop a Container
-```bash
+```shell
 docker stop <container_id_or_name>
 ```
 ### Start a Container
-```bash
+```shell
 docker start <container_id_or_name>
 ```
 
 ### Remove a Container
 
-```bash
+```shell
 docker rm <container_id_or_name>
 ```
 ### Force Remove
-```bash
+```shell
 docker rm -f <container_id_or_name>
 ```
 ## 4. Debugging & Interaction
 ### View Logs
-```bash
+```shell
 docker logs <container_id_or_name>
 ```
 ### Logs in real-time:
-```bash
+```shell
 docker logs -f <container_id_or_name>
 ```
 ### Access a Container
-```bash
+```shell
 docker exec -it <container_id_or_name> /bash
 ```
 **Note**: Use `/bin` `/sh` if `/bash` is not installed in the image
 
 ### Inspect Container
-```bash
+```shell
 docker inspect <container_id_or_name>
 ```
 ## 5. Docker Network & Volumes
 ### List Networks
-```bash
+```shell
 docker network ls
 ```
 ### Create a Network
-```bash
+```shell
 docker network create <network-name>
 ```
 ### List Volumes
-```bash
+```shell
 docker volume ls
 ```
 ### Create a Volume
-```bash
+```shell
 docker volume create <volume-name>
 ```
 ## 6. System Cleanup
 ### Prune System
-```bash
+```shell
 docker system prune
 ```
 
 ## 7. Docker Compose
 ### Start Services
 
-```bash
+```shell
 docker-compose up
 ```
 ### Restart Services
-```bash
+```shell
 docker-compose restart <service_name>
 ```
 
 ### Stop Services
-```bash
+```shell
 docker-compose down
 ```
 
 ### Start and Rebuild
-```bash
+```shell
 docker-compose up --build
 ```
 
 ### View Compose Logs
-```bash
+```shell
 docker-compose logs -f
 ```
 
 ### List Compose Containers
-```bash
+```shell
 docker-compose ps
 ```
 
 ### Execute Command
-```bash
+```shell
 docker-compose exec <service_name> /bin/bash
 ```
 
 ## 8. Useful Flags
 ### Interactive Mode
-```bash
+```shell
 -i
 ```
 ### TTY Mode
-```bash
+```shell
 -t
 ```
 
 ### Remove Container Automatically
-```bash
+```shell
 --rm
 ```
 ## 9. Advanced Volume Management
 Create a Volume
-```bash
+```shell
 docker volume create <volume-name>
 ```
 ### List Volumes
-```bash
+```shell
 docker volume ls
 ```
 
 ### Inspect a Volume
-```bash
+```shell
 docker volume inspect <volume-name>
 ```
 
 ### Remove a Volume
 
-```bash
+```shell
 docker volume rm <volume-name>
 ```
 ### Prune Volumes
-```bash
+```shell
 docker volume prune
 ```
 ### Mount Volume to Container
-```bash
+```shell
 docker run --name my-db -v <volume-name>:/var/lib/mysql mysql:latest
 ```
 ### Bind Mount (Host Directory)
-```bash
+```shell
 docker run --name dev-container -v /path/on/host:/path/in/container nginx
 ```
 
 ## 10. Advanced Networking
 ### List Networks
-```bash
+```shell
 docker network ls
 ```
 
 ### Create a Network
-```bash
+```shell
 docker network create <network-name>
 ```
 
 ### Inspect a Network
-```bash
+```shell
 docker network inspect <network-name>
 ```
 
 ### Run Container on Network
-```bash
+```shell
 docker run -d --name web-server --network <network-name> nginx
 ```
 
 ### Connect Container to Network
-```bash
+```shell
 docker network connect <network-name> <container_name>
 ```
 
 ### Disconnect Container
-```bash
+```shell
 docker network disconnect <network-name> <container_name>
 ```
 
 ### Remove a Network
-```bash
+```shell
 docker network rm <network-name>
 ```
 ### Prune Networks
-```bash
-
+```shell
 docker network prune
 ```
