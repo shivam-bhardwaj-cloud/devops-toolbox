@@ -1,6 +1,8 @@
-# Docker Files
+# Dockerfiles
 
-## 1. Flask App
+## 1. Flask (Production Ready)
+
+Best for: Python web apps using Gunicorn. Key features: No cache to save space, unbuffered logs for real-time debugging.
 
 ``` docker
 FROM python:3.12-slim
@@ -20,5 +22,23 @@ ENV PYTHONUNBUFFERED=1
 EXPOSE 5000
 
 # Start the production server
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]  
+```
+
+## 2. Node.js (Alpine)
+Best for: Lightweight Javascript applications.
+
+
+``` docker
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install --production
+
+COPY . .
+
+CMD ["node", "server.js"]
 ```
