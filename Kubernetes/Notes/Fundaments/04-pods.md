@@ -94,3 +94,13 @@ kubectl delete -f pod.yml # Using File
 - Inspect with `describe`
 - Debug with `logs` and `exec`
 - Remove with `kubectl delete`
+
+# Practical Notes Index
+
+Jump to detailed files:
+
+- [Kubernetes Theory](README.MD)
+- [KIND Installation](./01-kind-installation.md)
+- [Cluster Creation](./02-cluster-creation.md)
+- [Namespaces](./03-namespaces.md)
+- [Pods](./04-pods.md)
