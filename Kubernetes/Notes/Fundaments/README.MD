@@ -179,7 +179,7 @@ Different ways to create clusters:
 
 - kubeadm
 - minikube
-- KIND (Kubernetes in Docker) ✅ used in this course
+- KIND (Kubernetes in Docker)
 
 ## Managed Cloud
 

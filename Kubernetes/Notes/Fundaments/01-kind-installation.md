@@ -93,3 +93,20 @@ Jump to detailed files:
 - [Cluster Creation](./02-cluster-creation.md)
 - [Namespaces](./03-namespaces.md)
 - [Pods](./04-pods.md)
+
+---
+---
+
+## Official References (Version-Sensitive)
+
+Use these official docs if commands, versions, or download links change.
+
+- [KIND Installation Guide](https://kind.sigs.k8s.io/docs/user/quick-start/#installing-from-release-binaries)
+
+- [Kubectl Installation (Linux)](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
+
+- [KIND Cluster Configuration](https://kind.sigs.k8s.io/docs/user/configuration/)
+
+- [Pods Configuration](https://kubernetes.io/docs/concepts/workloads/pods/)
+
+- [Namespace Configuration](https://kubernetes.io/docs/tutorials/cluster-management/namespaces-walkthrough/)
