@@ -11,6 +11,8 @@ Use these notes for revision, lab work, and interview preparation.
 
 0. [Workload Controller Theory](./00-workload-theory.md)
 1. [Deployments](./01-deployments.md)
+2. [Services](./02-services.md)
+3. [Ingress](./03-ingress.md)
 
 ---
 
