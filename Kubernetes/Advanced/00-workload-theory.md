@@ -1,133 +1,112 @@
-# Theory (Deployments, ReplicaSets, Labels)
+# Workload Controllers — Core Theory
 
-These notes capture the theory explained before Deployment practical labs.
+This section explains how Kubernetes maintains application state using controllers and label selectors.
 
-Focus: how Kubernetes maintains the desired number of Pods using controllers and label selectors.
+Practical YAML examples are in the next files.
 
-This is concept-first material. Practical YAML comes in the next files.
+## 1. Desired State Model
 
----
+Kubernetes follows a declarative model.
 
-## Desired State Model
+You declare:
+- number of replicas
+- container image
+- labels
+- Pod template
 
-Kubernetes works on a **desired state** system.
+Kubernetes ensures the actual state matches the declared state.
 
-You declare in YAML:
+If drift occurs, controllers reconcile it automatically.
 
-- how many replicas you want
-- which container image to run
-- which labels to assign
-- how Pods should look
+Example
+```txt
+Desired replicas: 3  
+Running replicas: 2  
+```
+Controller creates 1 additional Pod.
 
-Kubernetes continuously compares:
+No manual intervention.
 
-desired state vs actual state
+## 2. Controllers
 
-If they differ, controllers take action to fix it.
-
-### Example
-
-Desired replicas = 3  
-Currently running = 2  
-
-Controller automatically creates 1 more Pod.
-
-No manual repair needed.
-
----
-
-## Controllers in Kubernetes
-
-Controllers are background control loops inside the control plane.
+Controllers are control loops running in the control plane.
 
 They:
-
 - watch cluster state
-- compare against desired state
-- create / delete resources to fix drift
+- compare actual vs desired
+- create or delete resources
 
-Examples of controllers:
+Examples:
 
 - Deployment controller
 - ReplicaSet controller
 - Job controller
-- Node controller
 
-Controllers are the reason Kubernetes is self-healing.
+Controllers enable self-healing.
 
----
+## 3. Replica
 
-## Replica Concept (Clone Model)
+Replica = identical Pod instance created from a template.
 
-Replica = identical copy of a Pod.
+If replicas = N → N identical Pods run.
 
-If replicas = N → Kubernetes runs N identical Pods.
-
-Each replica has:
-
-- same container image
+All replicas share:
+- same image
 - same configuration
 - same labels
-- same template
 
 They are interchangeable units.
 
-Think of replicas as cloned instances from one Pod template.
+## 4. ReplicaSet
 
----
+ReplicaSet maintains Pod count.
 
-## ReplicaSet — Pod Count Enforcer
+Responsibilities:
+```txt
+If Pods < desired → create Pods
+If Pods > desired → delete Pods
+```
+> ReplicaSet does not manage rolling updates.
 
-ReplicaSet is a controller whose only job is:
+It only enforces replica count.
 
-Maintain the correct number of Pods.
+>Usually managed by a Deployment.
 
-If Pods < desired → create new Pods  
-If Pods > desired → delete extra Pods
+## 5. Deployment
 
-ReplicaSet does not handle updates smartly.  
-It only maintains count.
-
-You usually do not create ReplicaSets directly.  
-Deployments manage them.
-
----
-
-## Deployment — Higher Level Controller
-
-Deployment sits above ReplicaSet.
+Deployment is a higher-level controller.
 
 Hierarchy:
+```txt
+Deployment
+  → ReplicaSet
+      → Pods
+```
+Responsibilities:
+- manage ReplicaSets
+- maintain replica count
+- perform rolling updates
+- support rollback
+- update Pod template safely
 
-Deployment  
-→ ReplicaSet  
-→ Pods
+Users typically create Deployments, not ReplicaSets.
 
-Deployment responsibilities:
-
-- manages ReplicaSets
-- controls replica count
-- performs rolling updates
-- supports rollback
-- updates Pod templates safely
-
-Users create Deployments, not ReplicaSets, in most cases.
-
----
-
-## Labels — Object Identification System
-
-Labels are key-value metadata attached to Kubernetes objects.
+## 6. Labels
+Labels are key-value metadata used for selection and grouping.
 
 Example:
 
-```yaml
+```yml
 labels:
-  app: nginx
-  tier: frontend
+  app: api
+  tier: backend
 ```
 
-## Study Order
+Controllers and Services use labels to select Pods.
 
-0. [Workload Controller Theory](./00-workload-theory.md)
-1. [Deployments](./01-deployments.md)
+Incorrect labels break routing and scaling.
+
+## Study Order
+- [1. Deployments](./01-deployments.md)
+- [2. Services](./02-services.md)
+- [3. Ingress](./03-ingress.md)

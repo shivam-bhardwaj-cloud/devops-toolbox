@@ -1,267 +1,165 @@
-# Kubernetes Fundamentals — Theory Overview
+# Kubernetes Fundamentals - Core Theory
 
-This file contains theory notes from the fundamentals introduction session before practical labs.  
-Goal: fast revision without rewatching long videos.
----
-## Kubernetes Architecture Diagram
+This file summarizes the core concepts required before starting practical labs.
+Purpose: fast revision and strong conceptual clarity.
+
+## Architecture Overview
 
 ![Kubernetes Architecture](../Assets/kubernetes-architecture.png)
----
 
-# Why Kubernetes
+A Kubernetes cluster is divided into:
+- Control Plane (management layer)
+- Worker Nodes (run applications)
 
-Modern apps evolved like this:
+## Why Kubernetes Exists
 
-Monolith → Microservices → Containers → Kubernetes
+Application evolution:
 
-Containers solved packaging.  
-Kubernetes solves **managing containers at scale**.
+- `Monolith` → `Microservices` → `Containers` → `Kubernetes`
+
+Containers solved packaging and portability.
+Kubernetes solves `container orchestration at scale`.
 
 Kubernetes provides:
+- Scheduling
+- Self-healing
+- Auto scaling
+- Service discovery
+- Rolling updates
+- Desired state enforcement
 
-- orchestration
-- scheduling
-- auto healing
-- auto scaling
-- service discovery
-- rolling updates
-- desired state management
+## Containers vs Kubernetes
 
----
+### Containers (Docker)
+- Package `code` + `runtime` + `dependencies`
+- Run well on a single machine
 
-# Monolith vs Microservices
+Docker does not handle:
+- Multi-node scheduling
+- Cluster networking
+- Automatic failover
+- Replica management
 
-## Monolith
-- Single big application
-- One deployable unit
-- Hard to scale parts independently
-- Small change → full redeploy
+### Kubernetes
 
-## Microservices
-- App split into small services
-- Independent deployment
-- Independent scaling
-- Better fault isolation
+Manages containers across multiple machines.
 
-Problem: many containers across many machines → needs orchestration → Kubernetes.
+It decides:
 
----
+- Where containers run
+- How many run
+- What happens if they fail
 
-# Containers and Docker
+## Kubernetes Cluster Structure
+### 1. Control Plane (Brain)
+> Responsible for cluster management.
 
-Containers package:
+**API Server**
+- Entry point
+- kubectl communicates here
+- All operations pass through it
 
-- code
-- runtime
-- dependencies
+**Scheduler**
+- Assigns Pods to nodes
 
-Docker runs containers well on **one machine**.
+**Controller Manager**
+- Ensures desired state matches actual state
 
-Docker does NOT handle:
-
-- multi-node scheduling
-- failover
-- scaling
-- cluster networking
-
-Kubernetes sits above containers and manages them across nodes.
-
----
-
-# Kubernetes Cluster
-
-A cluster = group of machines (nodes).
-
-Terms used the same way:
-
-- node
-- server
-- instance
-- VM
-
-Cluster has two parts:
-
-- Control Plane (Master)
-- Worker Nodes
-
----
-
-# Control Plane (Master) Components
-
-Control plane manages the cluster.
-
-## API Server
-- Entry point to cluster
-- kubectl talks here
-- All requests pass through it
-
-## Scheduler
-- Decides which node runs a Pod
-
-## Controller Manager
-- Watches desired vs actual state
-- Fixes drift automatically
-
-## etcd
+**etcd**
+- Stores cluster data
 - Key-value database
-- Stores cluster state
 
----
+### 2. Worker Nodes (Execution Layer)
+> Run application workloads.
 
-# Worker Node Components
-
-Worker nodes run application workloads.
-
-## Kubelet
+**Kubelet**
 - Node agent
-- Talks to API server
 - Ensures containers are running
 
-## kube-proxy
-- Network traffic routing
-- Service connectivity
+**kube-proxy**
+- Manages networking rules
+- Handles Service traffic
 
-## Container Runtime
+**Container Runtime**
 - Runs containers
-- containerd / Docker compatible runtimes
+- containerd (most common)
 
----
-
-# Kubernetes Networking (High Level)
-
-- Every Pod gets an IP
-- Pods communicate over cluster network
-- Services give stable access layer
-- CNI plugins provide networking
+## Networking (High Level)
+- Each Pod gets its own IP
+- Pods communicate directly
+- Services provide stable access
+- CNI plugins enable networking
 
 Examples:
-
 - Calico
 - Weave
-- others
 
----
+## Core Kubernetes Principles
+### Declarative Model
 
-# Core Kubernetes Behaviors
+You declare desired state in YAML.
 
-## Desired State Model
+Kubernetes continuously reconciles:
+```txt
+Desired State ≠ Actual State → Controller fixes it
+```
+### Self-Healing
+If a Pod crashes:
+- Kubernetes recreates it automatically
 
-You declare desired state in YAML.  
-Kubernetes keeps trying to match it.
-
-Desired → enforced continuously.
-
----
-
-## Auto Healing
-
-If container / Pod crashes:
-
-- Kubernetes recreates it
-- No manual restart needed
-
----
-
-## Auto Scaling
+### Scaling
 
 Workloads can scale:
+- Manually
+- Automatically (HPA)
 
-- manually
-- automatically (metrics based)
-
----
-
-# Kubernetes Setup Options
-
-Different ways to create clusters:
-
-## Local / Learning
-
+## Setup Options
+Local Learning
 - kubeadm
 - minikube
-- KIND (Kubernetes in Docker)
+- KIND
 
-## Managed Cloud
+Managed Cloud
+- EKS 
+- AKS
+- GKE
 
-- AWS EKS
-- Azure AKS
-- GCP GKE
-
-## Practice Platforms
-
-- Killercoda
-- Rancher (management layer)
-
----
-
-# Kubernetes Short Name
-
-Kubernetes → **K8s**
-
-K + 8 letters + s
-
----
-
-# Open Source & CNCF
-
-- Kubernetes is open source
-- Governed by CNCF
-- Large ecosystem
-- Vendor neutral
-
----
-
-# Key Objects (High Level)
-
-## Pod
-Smallest deployable unit  
+## Core Objects (High Level)
+### Pod
+Smallest deployable unit
 One or more containers
 
-## Service
+### Service
 Stable network endpoint for Pods
 
-## Namespace
+### Namespace
 Logical isolation inside cluster
 
-## Volume
-Persistent storage for Pods
+### Volume
+Persistent storage
 
-## Ingress
-External HTTP/HTTPS routing
+### Ingress
+External HTTP routing
 
----
+## Mental Model
+- Control Plane = Brain
+- Workers = Execution layer
+- Pods = Running units
+- YAML = Desired state
+- Controllers = Auto repair system
 
-# Mental Model
+## Practical Notes
 
-Think of cluster like:
+- [1. KIND Installation](./01-kind-installation.md)
+- [2. Cluster Creation](./02-cluster-creation.md)
+- [3. Namespaces](./03-namespaces.md)
+- [4. Pods](./04-pods.md)
 
-- Control Plane = brain
-- Workers = muscle
-- Pods = running units
-- YAML = instruction sheet
-- Controllers = auto-repair bots
-
----
-
-# Practical Notes Index
-
-Jump to detailed files:
-
-- [Kubernetes Theory](README.MD)
-- [KIND Installation](./01-kind-installation.md)
-- [Cluster Creation](./02-cluster-creation.md)
-- [Namespaces](./03-namespaces.md)
-- [Pods](./04-pods.md)
-
----
-
-# Quick Revision
-
+## Quick Revision
 - Kubernetes = container orchestrator
 - Cluster = control plane + workers
-- API server = entry point
-- Scheduler = placement
-- Controllers = auto fix
+- API Server = entry point
+- Scheduler = placement engine
+- Controllers = enforce desired state
 - Kubelet = node agent
-- Pods = smallest unit
-- Desired state model rules everything
+- Pods = smallest deployable unit

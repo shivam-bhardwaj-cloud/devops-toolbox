@@ -35,9 +35,9 @@ Flow:
 Client → Service → Pod (via label selector)
 
 ---
-## Service YAML Example
+## Steps and Commands
+### 1. Create a File: `service.yml`
 
-File: `service.yml`
 ```yml
 apiVersion: v1                 # Core API group
 kind: Service                  # Object type = Service
@@ -66,27 +66,35 @@ spec:
 
 Selector must match Pod label exactly or Service routes to nothing and silently judges you.
 
-## Create Service
+### 2. Create Service
 ```bash
 kubectl apply -f service.yml
 ```
-## Verify Service
+- Verify Service
 ```bash
 kubectl get svc -n <namespace>
 ```
-## Check endpoints (which Pods are linked):
+- Check endpoints (which Pods are linked):
 ```bash
 kubectl get endpoints -n <namespace>
 ```
 
-## Port Forward (Quick Local Test)
+### 3. Port Forward (Quick Local Test)
 ```bash
 kubectl port-forward svc/nginx-svc -n <namespace> 8080:82
 ```
 
-## Then open:
-
+- Then open:
+```
 http://localhost:8080
-
-
+```
 If you try binding low ports like 80 or 82 and Linux slaps your hand with permission denied, use `sudo` or pick a `higher port`. Kernel rules, not mine.
+
+## Study Order
+
+0. [Workload Controller Theory](./00-workload-theory.md)
+1. [Deployments](./01-deployments.md)
+2. [Services](./02-services.md)
+3. [Ingress](./03-ingress.md)
+
+---

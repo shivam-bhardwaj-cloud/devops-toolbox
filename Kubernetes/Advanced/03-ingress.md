@@ -29,7 +29,7 @@ Example:
 - `/app` → app-svc
 
 ## Steps and Commands
-### Step 1 — Install NGINX Ingress Controller
+### 1. Install NGINX Ingress Controller
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
 ```
@@ -40,7 +40,7 @@ kubectl get pods -n ingress-nginx
 Make sure the ingress-nginx-controller pod is Running.
 Wait until ingress-nginx-controller pod status is Running
 
-### Step 2 — Ingress YAML Example
+### 2. Create Ingress YML File
 
 - File: `ingress.yml`
 ```yml
@@ -78,20 +78,20 @@ spec:
             port:
               number: 80
 ```
-### Step 3 — Apply Ingress
+### 3. Apply Ingress
 ```bash
 kubectl apply -f ingress.yml
 ```
-Verify:
+- Verify:
 ```
 kubectl get ingress -n demo-ns
 ```
-### Step 4 — Access Ingress (Local Cluster)
-Find controller service:
+### 4. Access Ingress (Local Cluster)
+- Find controller service:
 ```bash
 kubectl get svc -n ingress-nginx
 ```
-Then port-forward:
+### 5. Port Forward:
 ```bash
 sudo -E kubectl port-forward svc/ingress-nginx-controller -n ingress-nginx 80:80 --address=0.0.0.0
 ```
@@ -141,6 +141,14 @@ Routing depends on:
 ```bash
 kubectl get endpoints -n demo-ns
 ```
+## Study Order
+
+0. [Workload Controller Theory](./00-workload-theory.md)
+1. [Deployments](./01-deployments.md)
+2. [Services](./02-services.md)
+3. [Ingress](./03-ingress.md)
+
+---
 
 ## Quick Revision
 
