@@ -107,6 +107,7 @@ Controllers and Services use labels to select Pods.
 Incorrect labels break routing and scaling.
 
 ## Study Order
-- [1. Deployments](./01-deployments.md)
-- [2. Services](./02-services.md)
-- [3. Ingress](./03-ingress.md)
+0. [Workload Controller Theory](./00-workload-theory.md)
+1. [Deployments](./01-deployments.md)
+2. [Services](./02-services.md)
+3. [Ingress](./03-ingress.md)
