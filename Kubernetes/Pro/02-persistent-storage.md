@@ -60,8 +60,8 @@ standard (default)
 We will use `standard`.
 
 ### 2. Create PersistentVolume
-```yml
 File: `persistentVolume.yml`
+```yml
 
 apiVersion: v1
 kind: PersistentVolume
