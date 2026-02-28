@@ -107,9 +107,9 @@ kubectl scale deployment <deployment-name> -n <namespace> --replicas=1
 ```
 
 Verify:
-
+```bash
 kubectl get pods -n <namespace>
-
+```
 ## Update Image (Rolling Update)
 - Change container image:
 ```bash
