@@ -29,40 +29,41 @@ Deployment → ReplicaSet → Pods
 
 ---
 
-## Deployment YAML Example
+## Steps with Commands
+### Create File : `deployment.yml`
 
 File: `deployment.yml`
 ```yml
 apiVersion: apps/v1          # API group for Deployment resources
-kind: Deployment             # Object type = Deployment controller
+kind: Deployment
 
 metadata:
-  name: nginx-deployment     # Name of the Deployment
-  namespace: demo-ns         # Namespace where it will be created
+  name: nginx-deployment
+  namespace: demo-ns
   labels:
     app: nginx               # Label attached to the Deployment object
 
 spec:
-  replicas: 3                # Desired number of Pod replicas
+  replicas: 3
 
   selector:                  # Selector used to find Pods managed by this Deployment
     matchLabels:
       app: nginx             # Must match template.labels exactly
 
-  template:                  # Pod template (blueprint for Pods)
+  template:
     metadata:
       labels:
         app: nginx           # Labels applied to created Pods (must match selector)
 
     spec:
-      containers:            # List of containers inside each Pod
-      - name: nginx          # Container name (logical name inside Pod)
-        image: nginx:latest  # Container image to run
+      containers:
+      - name: nginx
+        image: nginx:latest
         ports:
         - containerPort: 80  # Port exposed by container inside Pod
 ```
 
-## Important Fields
+### Important Fields
 1. `apiVersion: apps/v1` → required API group for Deployments
 2. `kind:` Deployment → object type
 3. `metadata.name` → deployment name
@@ -72,7 +73,7 @@ spec:
 7. `spec.template` → Pod blueprint used for replicas
 
 
-## Create Deployment
+### 2. Create Deployment
 - Validate only (no creation):
 ```bash
 kubectl apply -f deployment.yml --dry-run=client
@@ -85,18 +86,17 @@ kubectl apply -f deployment.yml
 ```bash
 kubectl apply -f deployment.yml -n demo-ns
 ```
-## Verify Deployment
-- List Deployments:
+### 3. Verify Deployment
 ```bash
 kubectl get deployments -n demo-ns
 ```
 
-## Check ReplicaSets:
+### Check ReplicaSets:
 ```bash
 kubectl get rs -n demo-ns
 ```
 
-## Scale Deployment
+### Scale Deployment
 - Increase replicas:
 ```bash
 kubectl scale deployment <deployment-name> -n <namespace> --replicas=10
@@ -110,12 +110,12 @@ Verify:
 ```bash
 kubectl get pods -n <namespace>
 ```
-## Update Image (Rolling Update)
+### Update Image (Rolling Update)
 - Change container image:
 ```bash
 kubectl set image deployment/<deployment-name> nginx=nginx:1.25 -n <namespace>
 ```
-## Kubernetes performs rolling update automatically.
+### Kubernetes performs rolling update automatically.
 
 - Watch rollout progress:
 ```bash
@@ -131,7 +131,7 @@ kubectl rollout history deployment/<deployment-name> -n <namespace>
 kubectl rollout undo deployment/<deployment-name> -n <namespace>
 ```
 
-## Delete Deployment
+### Delete Deployment
 - Delete by name:
 ```bash
 kubectl delete deployment <deployment-name> -n <namespace>

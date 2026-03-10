@@ -13,9 +13,9 @@ Useful for testing scheduling, deployments, and scaling behavior.
 
 ---
 
-## Create Config File
+## Steps with Commands
 
-Create a file:
+### 1. Create a file: `cluster.yml`
 
 ```bash
 vim cluster.yml
@@ -39,28 +39,26 @@ nodes:
   image: kindest/node:v1.30.0
 ```
 
-## Create Cluster
+### 2. Create Cluster
 ```bash
 kind create cluster --config cluster.yml --name <name_of_cluster>
 ```
 
-## Verify Cluster
-
-Check KIND clusters:
+- Verify Cluster
 
 ```bash
 kind get clusters
 ```
 
-Check Kubernetes nodes:
+- Check Kubernetes nodes:
 
 ```bash
 kubectl get nodes
 ```
 
-## Delete Cluster
+### 3. Delete Cluster
 ```bash
-kind delete cluster
+kind delete cluster --name <cluster-name>
 ```
 
 ## Cluster Access & Context Commands
@@ -86,9 +84,7 @@ kubectl config use-context kind-kind
 - `worker` = runs workloads
 - `Use --config` to create custom cluster
 
-# Practical Notes Index
-
-Jump to detailed files:
+## Practical Notes Index
 
 - [Kubernetes Theory](README.MD)
 - [KIND Installation](./01-kind-installation.md)

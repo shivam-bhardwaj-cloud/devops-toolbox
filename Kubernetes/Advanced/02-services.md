@@ -40,22 +40,22 @@ Client → Service → Pod (via label selector)
 
 ```yml
 apiVersion: v1                 # Core API group
-kind: Service                  # Object type = Service
+kind: Service
 
 metadata:
-  name: nginx-svc              # Service name
-  namespace: nginx-ns          # Target namespace
+  name: nginx-svc
+  namespace: nginx-ns
 
 spec:
   selector:
-    app: nginx                 # Must match Pod labels
+    app: nginx
 
   ports:
   - protocol: TCP
-    port: 82                   # Service port (cluster side)
+    port: 82
     targetPort: 80             # Container port inside Pod
 
-  type: ClusterIP              # Default service type
+  type: ClusterIP
 ```
 
 ## Important Fields

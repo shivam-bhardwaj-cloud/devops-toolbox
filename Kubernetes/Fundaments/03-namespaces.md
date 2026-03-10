@@ -12,8 +12,9 @@ Used for:
 
 ---
 
-## List Namespaces
+## Steps with Commands
 
+### 1. List Namespace
 ```bash
 kubectl get ns
 kubectl get namespaces
@@ -21,8 +22,7 @@ kubectl get namespaces
 
 ---
 
-## Create Namespace (YML)
-
+### 2. Create File : `namespace.yml`
 ```yml
 kind: Namespace
 apiVersion: v1
@@ -30,7 +30,7 @@ metadata:
   name: my-namespace
 ```
 
-Apply:
+### 3. Apply Namespace 
 
 ```bash
 kubectl apply -f namespace.yml # by file
@@ -38,20 +38,21 @@ kubectl apply -f namespace.yml # by file
 ```bash
 kubectl create namespace my-namespace # by command
 ```
-Verify:
-
+### 4. Verify Namespace
 ```bash
 kubectl get ns
 ```
-
----
-
-## Get Services
-
-```bash
-kubectl get service
-kubectl get svc
+- Expected Ouput
 ```
+NAME                 STATUS   AGE
+default              Active   8m39s
+my-namespace         Active   5s
+kube-node-lease      Active   8m39s
+kube-public          Active   8m40s
+kube-system          Active   8m40s
+local-path-storage   Active   8m16s
+```
+---
 
 ## Pro Tip: Context Switching
 Instead of typing `-n <namespace>` every time, change your current context:
@@ -64,11 +65,9 @@ kubectl config set-context --current --namespace=my-namespace
 
 - `Namespace` = logical isolation
 - `Default namespaces` exist already
-- Create via YML or command
+- Create via `YML` or `command`
 
-# Practical Notes Index
-
-Jump to detailed files:
+## Practical Notes Index
 
 - [Kubernetes Theory](README.MD)
 - [KIND Installation](./01-kind-installation.md)
