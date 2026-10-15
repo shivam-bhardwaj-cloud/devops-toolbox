@@ -4,7 +4,7 @@ A structured collection of Dockerfile examples for different programming languag
 
 ---
 
-## 📑 Table of Contents
+## Table of Contents
 
 1. [Python — Flask (Production Ready)](#1-python--flask-production-ready)
 2. [Python + MySQL](#2-python--mysql)
@@ -28,29 +28,29 @@ A structured collection of Dockerfile examples for different programming languag
   * Runs the application using Gunicorn, a production WSGI server.
 
 ### Dockerfile
-
 ```dockerfile
+# Use a lightweight official Python base image
 FROM python:3.12-slim
 
+# Set the working directory inside the container
 WORKDIR /app
 
+# Copy and install dependencies efficiently
 COPY requirements.txt .
+# --no-cache-dir prevents saving download files, saving image space
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy the rest of the application code
 COPY . .
 
+# Ensure logs appear immediately without buffering
 ENV PYTHONUNBUFFERED=1
 
 EXPOSE 5000
 
+# Start the production WSGI server
 CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "app:app"]
 ```
-
-### Requirements
-* `requirements.txt` must include Flask and Gunicorn.
-* The application entry point must match `app:app`.
-* Adjust the port and worker count to your application requirements.
-
 ---
 
 ## 2. Python + MySQL
@@ -342,41 +342,3 @@ build/
 
 > **Note:** Customize this file for each project. Do not exclude files required by your build.
 
----
-
-## 9. How to Add a New Technology
-
-Follow this structure for every new Dockerfile example to keep the documentation consistent.
-
-### Technology Name
-* **Best for:** Describe the intended use case.
-* **Base image:** Specify the image and version.
-* **Key features:**
-  * Feature 1
-  * Feature 2
-  * Feature 3
-
-### Dockerfile
-```dockerfile
-# Add your Dockerfile example here
-```
-
-### Build and Run
-```bash
-docker build -t my-app .
-docker run --rm -p 5000:5000 my-app
-```
-
-### Important Notes
-* Add dependency requirements.
-* Explain environment variables.
-* Document ports and volumes.
-* Mention security considerations and limitations.
-
----
-
-## Conclusion
-
-This repository serves as a central reference for Dockerfile technologies, from basic application containers to optimized production images. 
-
-The table of contents provides quick navigation to each section, while the standardized structure makes it easy to add new technologies, examples, and best practices over time.
