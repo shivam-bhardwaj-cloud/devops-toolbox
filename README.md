@@ -6,6 +6,10 @@ A curated collection of scripts, utilities, and reference materials to support c
 
 ### Platform Resources
 - **[Linux](./Linux/)**
+- **[Github](./github/)**
+- **[Docker](./Docker/)**
+- **[Kubernetes](./Kubernetes/)**
+
 ## Purpose
 
 This repository aims to:
@@ -18,4 +22,6 @@ This repository aims to:
 
 Clone the repository:
 ```bash
-git clone <repo-url>
+git clone https://github.com/shivam-bhardwaj-cloud/devops-toolbox/
+```
+
